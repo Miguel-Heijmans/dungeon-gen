@@ -7,29 +7,27 @@ public class Culling : MonoBehaviour
     public List<GameObject> _gameObjects = new List<GameObject>();
     
 
-    private void OnTriggerEnter(Collider sphereCollider)
-    {
-        if (!sphereCollider.TryGetComponent<RoomBehaviour>(out var comp)) return;
-        GameObject o;
-        (o = comp.gameObject).SetActive(true);
-        //_gameObjects.Add(o);
-    }
+    
+    
 
+    //checks the distance of a room to the player
     private float CheckDistance(GameObject other){
         var distance = Vector3.Distance(other.gameObject.transform.position, this.gameObject.transform.position);
         return distance;
     }
     
+    //enables the rooms once having entered teh vicinity of the player
     public void HandleEnabling()
     {
         if(_gameObjects.Count <= 0) return;
-        foreach (var obj in from obj in _gameObjects let distance = CheckDistance(obj) where !(distance > 25) select obj)
+        foreach (var obj in from obj in _gameObjects let distance = CheckDistance(obj) where !(distance > 15) select obj)
         {
             obj.SetActive(true);
         }
-        Debug.Log(_gameObjects.Count);
+        
     }
 
+    //disables the rooms after having exited the vicinity of the player
     private void OnTriggerExit(Collider sphereCollider)
     {
         if (sphereCollider.TryGetComponent<RoomBehaviour>(out var comp))
@@ -53,6 +51,8 @@ public class Culling : MonoBehaviour
 
         return filteredObjects.ToArray();
     }*/
+
+    //finds all the rooms and adds them to a list so that they can be found after having been disabled
     public void Start()
     {
         
@@ -64,6 +64,6 @@ public class Culling : MonoBehaviour
             (roomBehaviourObject = roomBehaviour.gameObject).SetActive(false);
             _gameObjects.Add(roomBehaviourObject);
         }
-        Debug.Log("start");
+        
     }
 }

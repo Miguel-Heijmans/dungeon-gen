@@ -24,7 +24,6 @@ public class DungeonGenerator : MonoBehaviour
     
     public void Awake()
     {
-        //Instantiate(player);
         MazeGenerator();
     }
 
@@ -43,7 +42,7 @@ public class DungeonGenerator : MonoBehaviour
 
                 newRoom.name += " " + i + "-" + j;
 
-                // newRoom.SetActive(false);
+               
 
             }
         }
@@ -133,7 +132,7 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         GenerateDungeon();
-        Debug.Log("generate");
+        
     }
 
     private List<int> CheckNeighbors(int cell)//returns a list of all the neighbors of the current cell
@@ -163,6 +162,8 @@ public class DungeonGenerator : MonoBehaviour
 
         return neighbors;
     }
+    
+    //re-generates the dungeon by reloading the scene
     public void RegenerateDungeon()
     {
         SceneManager.LoadScene(0);
