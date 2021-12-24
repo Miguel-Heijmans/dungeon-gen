@@ -102,9 +102,10 @@ private void Update ()
         }
     }
 }
-void Start ()
+
+private void Start ()
 {
-Rigidbody rb = GetComponent<Rigidbody>();
+var rb = GetComponent<Rigidbody>();
 if (rb)
 
     rb.freezeRotation = true;

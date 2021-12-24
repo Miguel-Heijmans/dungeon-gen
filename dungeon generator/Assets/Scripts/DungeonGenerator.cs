@@ -1,9 +1,13 @@
 //using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonGenerator : MonoBehaviour
 {
+    
+    
+    public GameObject player;
     //cell information such as having been visited or not and amount of doors.
     private class Cell
     {
@@ -17,10 +21,10 @@ public class DungeonGenerator : MonoBehaviour
     public Vector2 offset;
 
     private List<Cell> _board;
-
-    //this algorithm uses the "depth first search" algorithm
-    void Awake()
+    
+    public void Awake()
     {
+        //Instantiate(player);
         MazeGenerator();
     }
 
@@ -47,6 +51,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void MazeGenerator()
     {
+        
         _board = new List<Cell>();
 
         for (var i = 0; i < size.x; i++)
@@ -128,6 +133,7 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         GenerateDungeon();
+        Debug.Log("generate");
     }
 
     private List<int> CheckNeighbors(int cell)//returns a list of all the neighbors of the current cell
@@ -156,5 +162,9 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         return neighbors;
+    }
+    public void RegenerateDungeon()
+    {
+        SceneManager.LoadScene(0);
     }
 }
